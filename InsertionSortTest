@@ -1,0 +1,45 @@
+package org.example;  // Replace with your package name
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import org.example.InsertionSort;
+
+public class InsertionSortTest {
+
+    @Test
+    public void testInsertionSortWithEmptyArray() {
+        int[] arr = {};
+        int[] metrics = InsertionSort.insertionSort(arr);
+        assertArrayEquals(new int[]{}, arr, "Array should remain empty.");
+        assertArrayEquals(new int[]{0, 0}, metrics, "Metrics should be zero for an empty array.");
+    }
+
+    @Test
+    public void testInsertionSortWithSingleElement() {
+        int[] arr = {1};
+        int[] metrics = InsertionSort.insertionSort(arr);
+        assertArrayEquals(new int[]{1}, arr, "Array with a single element should remain unchanged.");
+        assertArrayEquals(new int[]{0, 0}, metrics, "No comparisons or swaps should be made.");
+    }
+
+    @Test
+    public void testInsertionSortWithDuplicates() {
+        int[] arr = {3, 1, 2, 1};
+        int[] metrics = InsertionSort.insertionSort(arr);
+        assertArrayEquals(new int[]{1, 2, 3}, arr, "Array with duplicates should be sorted correctly.");
+    }
+
+    @Test
+    public void testInsertionSortWithAlreadySortedArray() {
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] metrics = InsertionSort.insertionSort(arr);
+        assertArrayEquals(new int[]{1, 2, 3}, arr, "Already sorted array should remain the same.");
+    }
+
+    @Test
+    public void testInsertionSortWithReverseSortedArray() {
+        int[] arr = {5, 4, 3, 2, 1};
+        int[] metrics = InsertionSort.insertionSort(arr);
+        assertArrayEquals(new int[]{1, 2, 3}, arr, "Reverse sorted array should be sorted correctly.");
+    }
+}
