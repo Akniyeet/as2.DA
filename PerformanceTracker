@@ -1,0 +1,33 @@
+package metrics;
+
+public class PerformanceTracker {
+    private int comparisons = 0;
+    private int swaps = 0;
+    private int accesses = 0;  // Optional: if you need to track array accesses
+
+    // Increment methods
+    public void incrementComparisons() {
+        comparisons++;
+    }
+
+    public void incrementSwaps() {
+        swaps++;
+    }
+
+    public void incrementArrayAccesses() {
+        accesses++;
+    }
+
+    // Reset the metrics
+    public void reset() {
+        comparisons = 0;
+        swaps = 0;
+        accesses = 0;  // Reset array accesses
+    }
+
+    // Provide a summary of all metrics
+    @Override
+    public String toString() {
+        return "Comparisons: " + comparisons + ", Swaps: " + swaps + ", Array Accesses: " + accesses;
+    }
+}
