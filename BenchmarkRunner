@@ -1,0 +1,35 @@
+package cli;
+
+import algorithms.InsertionSort;  // Change to InsertionSort
+import metrics.PerformanceTracker;
+
+import java.util.Random;
+
+public class BenchmarkRunner {
+    public static void main(String[] args) {
+        int[] sizes = {100, 1000, 10_000};  // Array sizes to test
+        Random random = new Random();
+
+        for (int size : sizes) {
+            // Generate a random array of integers of size `size`
+            int[] arr = random.ints(size, 0, size * 10).toArray();
+
+            // Create the PerformanceTracker instance to track metrics
+            PerformanceTracker tracker = new PerformanceTracker();
+
+            // Create InsertionSort instance with the PerformanceTracker
+            InsertionSort sorter = new InsertionSort(tracker);
+
+            // Track sorting time
+            long start = System.nanoTime();
+            sorter.sort(arr);  // Sort the array
+            long end = System.nanoTime();
+
+            // Output the results
+            System.out.println("Array size: " + size);
+            System.out.println("Time: " + (end - start) / 1e6 + " ms");  // Time in milliseconds
+            System.out.println(tracker);  // Print out performance metrics
+            System.out.println("-------------------------");
+        }
+    }
+}
