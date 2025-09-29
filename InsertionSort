@@ -1,0 +1,98 @@
+import java.util.Arrays;
+
+public class InsertionSort {
+
+    /**
+     * Optimized Insertion Sort for nearly-sorted data.
+     * This method sorts the array in-place and tracks the number of comparisons and swaps.
+     *
+     * @param arr The array to be sorted
+     */
+    public static void insertionSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            System.out.println("Array is empty or null. No sorting needed.");
+            return; // Handle empty or null array
+        }
+
+        int comparisons = 0;  // Metrics for comparisons
+        int swaps = 0;        // Metrics for swaps
+
+        // Loop over each element in the array starting from index 1
+        for (int i = 1; i < arr.length; i++) {
+            int key = arr[i];
+            int j = i - 1;
+
+            // Check if the element is already in the correct position
+            comparisons++;
+            if (arr[j] <= key) {
+                continue; // Skip this step if the element is already sorted
+            }
+
+            // Find the correct position for the key element
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+                swaps++;  // Count swaps
+                comparisons++; // Track comparison in while loop
+            }
+            arr[j + 1] = key;
+        }
+
+        // Output metrics
+        System.out.println("Comparisons: " + comparisons);
+        System.out.println("Swaps: " + swaps);
+    }
+
+    /**
+     * Utility method for printing the array.
+     *
+     * @param arr The array to be printed
+     */
+    public static void printArray(int[] arr) {
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    /**
+     * Main method for accepting array inputs via CLI and testing the sort.
+     * The method allows for testing with different input sizes from the command line.
+     *
+     * @param args Command line arguments for the array elements
+     */
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("No input provided. Using a default array.");
+            // Default array if no input is provided
+            int[] arr = {12, 11, 13, 5, 6};
+            System.out.println("Original Array:");
+            printArray(arr);
+
+            // Sorting the array using Insertion Sort
+            insertionSort(arr);
+
+            System.out.println("Sorted Array:");
+            printArray(arr);
+        } else {
+            try {
+                // Convert command line arguments to an array of integers
+                int[] arr = Arrays.stream(args)
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+
+                System.out.println("Original Array:");
+                printArray(arr);
+
+                // Sorting the array using Insertion Sort
+                insertionSort(arr);
+
+                System.out.println("Sorted Array:");
+                printArray(arr);
+            } catch (NumberFormatException e) {
+                // Handle invalid input: non-integer values in the CLI arguments
+                System.out.println("Invalid input. Please enter only integers.");
+            }
+        }
+    }
+}
